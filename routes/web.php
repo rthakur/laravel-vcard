@@ -13,16 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('vcard.index');
+Route::get('/', 'HomeController@index');
+
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('vcard', 'VcardController@index');
+  Route::get('vcard/create', 'VcardController@create');
 });
 
-Route::get('/vcard', 'VcardController@index');
 
-Route::get('vcard/create', 'VcardController@create');
- 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('logout', function () {
+    Auth::logout();
+    return redirect('/home');
+});
+
 
  
