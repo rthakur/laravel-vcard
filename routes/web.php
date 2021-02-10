@@ -17,7 +17,7 @@ Route::get('/', 'HomeController@index');
 
 Route::group(['middleware' => ['auth']], function () {
   Route::get('vcard', 'VcardController@index');
-  Route::get('vcard/create', 'VcardController@create');
+  Route::get('vcard/create/{section?}', 'VcardController@create');
 });
 
 

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vcard extends Model
 {
-     
+     protected $guarded = [];
 }

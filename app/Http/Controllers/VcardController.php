@@ -23,9 +23,9 @@ class VcardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, $section = 'about')
     {
-      $select['select'] = isset($request->select) ? $request->select : 'about';
+      $select['section'] = $section;
       return view('vcard.addvcard',$select);
     }
 
