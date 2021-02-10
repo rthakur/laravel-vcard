@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Vcard;
 class VcardController extends Controller
 {
     /**
@@ -13,9 +14,9 @@ class VcardController extends Controller
      */
     public function index()
     {
-      // echo Auth::user();
-      // die;
-       return view('vcard.index');
+        
+       $data['vcards'] = Vcard::where('user_id', auth::id())->get();
+       return view('vcard.index', $data);
     }
 
     /**
@@ -37,7 +38,17 @@ class VcardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $vcard = new Vcard;
+      $vcard->user_id = Auth::id();
+      $vcard->about_compnay_name = $request->about_compnay_name;
+      $vcard->about_email = $request->about_email;
+      $vcard->about_address = $request->about_address;
+      $vcard->about_city = $request->about_city;
+      $vcard->about_state = $request->about_state;
+      $vcard->about_zip = $request->about_zip;
+      $vcard->save();
+    
+      return redirect('vcard/create/service');
     }
 
     /**
