@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 class VcardController extends Controller
 {
     /**
@@ -13,6 +13,8 @@ class VcardController extends Controller
      */
     public function index()
     {
+      // echo Auth::user();
+      // die;
        return view('vcard.index');
     }
 
