@@ -14,8 +14,8 @@ class VcardController extends Controller
      */
     public function index()
     {
-        
-       $data['vcards'] = Vcard::where('user_id', auth::id())->get();
+      
+       $data['vcards'] = Auth::user()->vcard->paginate(1);
        return view('vcard.index', $data);
     }
 
@@ -24,9 +24,19 @@ class VcardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $section = 'about')
+    public function create(Request $request, $section = 'about', $vcardId = null)
     {
+      $vcard = Vcard::find($vcardId);
+      
+      if ($section != 'about' && ! $vcard )
+      {
+        $request->session()->flash('notification_warning', 'Please create vcard first');
+        return redirect('/vcard/create');
+      }
+      
       $select['section'] = $section;
+      $select['vcard'] = $vcard;
+      
       return view('vcard.addvcard',$select);
     }
 

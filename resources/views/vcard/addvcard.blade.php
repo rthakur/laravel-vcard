@@ -7,8 +7,8 @@
       <div class="col-md-3">
         <ul class="list-group">
           <li class="list-group-item"> <a href="/vcard/create">About</a> </li>
-          <li class="list-group-item"> <a href="/vcard/create/service">Service</a> </li>
-          <li class="list-group-item"> <a href="/vcard/create/gallery">Gallery</a> </li>
+          <li class="list-group-item"> <a href="/vcard/create/service/{{ $vcard? $vcard->id : '' }}">Service</a> </li>
+          <li class="list-group-item"> <a href="/vcard/create/gallery/{{ $vcard? $vcard->id : '' }}">Gallery</a> </li>
         </ul>
       </div>
       <div class="col-md-9">

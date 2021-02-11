@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    
+    /**
+   * Get the vcard for the user.
+   */
+    public function vcard()
+    {
+        return $this->belongsTo(Vcard::class, 'id', 'user_id');
+    }
+
 }

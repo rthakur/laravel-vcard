@@ -1,4 +1,12 @@
 <h1>About</h1>
+
+@if( Session::has('notification_warning') )
+  <div class="alert alert-warning" role="alert">
+    {{ Session::get('notification_warning')  }}
+  </div>
+@endif
+
+
 <form action="/vcard/about/store" method="post">
   @csrf
   <div class="form-row">

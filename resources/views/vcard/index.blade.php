@@ -23,7 +23,9 @@
     </div>
    @endforeach
    
-    
+   <div>
+      {{ $vcards->links() }}  
+   </div>
   </div>
   
 @endsection
