@@ -53,7 +53,7 @@ class VcardController extends Controller
      */
     public function store(Request $request)
     {
-      $vcard = Vcard::firstOrCreate(['id' => $request->id]);
+      $vcard = Vcard::firstOrNew(['id' => $request->id]);
       $vcard->user_id = Auth::id();
       $vcard->about_compnay_name = $request->about_compnay_name;
       $vcard->about_email = $request->about_email;
@@ -117,7 +117,6 @@ class VcardController extends Controller
     {
         //
     }
-    
     
     private function checkAndGetVcard($id)
     {

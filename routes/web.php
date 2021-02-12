@@ -19,7 +19,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('vcard', 'VcardController@index');
   Route::get('vcard/{id}/edit', 'VcardController@edit');
   Route::get('vcard/create/{section?}/{id?}', 'VcardController@create');
+  
   Route::post('vcard/about/store', 'VcardController@store');
+  Route::post('vcard/create/service/{id}/store', 'VcardServiceController@store');
 });
 
 
