@@ -43,7 +43,7 @@ class User extends Authenticatable
    */
     public function vcard()
     {
-        return $this->belongsTo(Vcard::class, 'id', 'user_id');
+        return $this->hasmany(Vcard::class);
     }
 
 }

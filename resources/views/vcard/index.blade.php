@@ -15,17 +15,14 @@
                 <h5 class="card-title">{{ $vcard->about_compnay_name }}</h5>
               </div>
               <div class="card-footer text-right">
-                <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                <a href="/vcard/{{ $vcard->id }}/edit" class="btn btn-primary btn-sm">Edit</a>
+                <a href="/vcard/{{ $vcard->id }}/delete" class="btn btn-danger btn-sm">Delete</a>
               </div>  
             </div>
       </div>
     </div>
    @endforeach
-   
-   <div>
-      {{ $vcards->links() }}  
-   </div>
+{{ $vcards->links() }}
   </div>
   
 @endsection

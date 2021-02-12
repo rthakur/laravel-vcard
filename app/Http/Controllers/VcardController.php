@@ -15,10 +15,10 @@ class VcardController extends Controller
     public function index()
     {
       
-       $data['vcards'] = Auth::user()->vcard->paginate(1);
+       $data['vcards'] = Auth::user()->vcard()->paginate(1);
        return view('vcard.index', $data);
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +26,12 @@ class VcardController extends Controller
      */
     public function create(Request $request, $section = 'about', $vcardId = null)
     {
-      $vcard = Vcard::find($vcardId);
+      
+      if ( $vcardId ){
+        $vcard = $this->checkAndGetVcard($vcardId);
+      }else{
+        $vcard = '';
+      }
       
       if ($section != 'about' && ! $vcard )
       {
@@ -48,7 +53,7 @@ class VcardController extends Controller
      */
     public function store(Request $request)
     {
-      $vcard = new Vcard;
+      $vcard = Vcard::firstOrCreate(['id' => $request->id]);
       $vcard->user_id = Auth::id();
       $vcard->about_compnay_name = $request->about_compnay_name;
       $vcard->about_email = $request->about_email;
@@ -57,8 +62,8 @@ class VcardController extends Controller
       $vcard->about_state = $request->about_state;
       $vcard->about_zip = $request->about_zip;
       $vcard->save();
-    
-      return redirect('vcard/create/service');
+      
+      return redirect('vcard/create/service/'.$vcard->id);
     }
 
     /**
@@ -69,7 +74,6 @@ class VcardController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -80,7 +84,15 @@ class VcardController extends Controller
      */
     public function edit($id)
     {
-        //
+      
+      $vcard = $this->checkAndGetVcard($id);
+  
+      $select['section'] = 'about';
+      $select['vcard'] = $vcard;
+      
+      return view('vcard.addvcard',$select);
+  
+  
     }
 
     /**
@@ -104,5 +116,12 @@ class VcardController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    
+    private function checkAndGetVcard($id)
+    {
+      return Vcard::where('user_id', auth::id() )
+     ->where('id', $id)->firstorfail();
     }
 }
