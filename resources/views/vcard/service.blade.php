@@ -1,10 +1,8 @@
-<h2>
-  <b>Manage Service</b>
-</h2>
+<h2 class="text-center bg-dark text-white">Manage Service</h2>
 <div class="text-right">
   <a href="#" class="btn btn-success btn-sm mb-4 add-service">Add service</a>
-</div>  
-<table class="table">
+</div>
+<table class="table text-center">
    <thead>
      <tr>
        <th>product name</th>
@@ -16,17 +14,17 @@
      <tr>
        <td>{{ $service->title }}</td>
        <td>
-         <a href="#" data-service="{{ $service }}" class="edit-service"> Edit </a>
-         <a href="#" class="delete-service"> Delete </a>
+         <a href="#" data-service="{{ $service }}" class="btn btn-primary edit-service"> Edit </a>
+         <a href="/service/delete/{{$service->id}}" class="btn btn-danger delete-service"> Delete </a>
        </td>
      </tr>
-     @endforeach 
+     @endforeach
    </tbody>
  </table>
  <div class="form-group text-right">
-   <a href="?select=gallery" class="btn btn-primary btn-sm">Save and next </a>
+   <a href="/vcard/create/gallery/{{$vcard?$vcard->id:''}}" class="btn btn-primary btn-sm">Save and next </a>
  </div>
- 
+
 <!-- Modal -->
 <form action="/vcard/create/service/{{ $vcard->id }}/store" method="post">
 <div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -56,22 +54,21 @@
 </form>
 @push('scripts')
 <script type="text/javascript">
-    
+
     $('.add-service').click(function(){
       $('#serviceModal').modal('show');
       $('#serviceModalTitle').text('Add Service');
       $('#serviceId').val('');
       $('#serviceSaveButton').text('Save service');
     });
-      
+
     $('.edit-service').click(function(){
       var service = $(this).data('service');
       $('#serviceId').val(service.id);
       $('#serviceTitle').val(service.title);
       $('#serviceSaveButton').text('Update service');
-      
+
       $('#serviceModal').modal('show');
-    });  
+    });
 </script>
 @endpush
-

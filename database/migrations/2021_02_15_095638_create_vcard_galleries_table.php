@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVcardServicesTable extends Migration
+class CreateVcardGalleriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateVcardServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vcard_services', function (Blueprint $table) {
+        Schema::create('vcard_galleries', function (Blueprint $table) {
             $table->id();
             $table->integer('vcard_id');
-            $table->string('title');
-            $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateVcardServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vcard_services');
+        Schema::dropIfExists('vcard_galleries');
     }
 }

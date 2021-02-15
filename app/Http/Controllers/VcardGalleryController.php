@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use Auth;
 use App\VcardService;
-class VcardServiceController extends Controller
+use App\VcardGallery;
+
+class VcardGalleryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,18 +36,19 @@ class VcardServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $vcardId)
+    public function store(Request $request,$vcardId)
     {
-
       $request->validate([
-        'title' => 'required'
-      ]);
+          'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        $service = VcardService::firstOrNew(['id' => $request->id]);
-        $service->vcard_id = $vcardId;
-        $service->title = $request->title;
-        $service->save();
+        $gallery              = VcardGallery::firstOrNew(['id'=>$request->id]);
+        $path                 = $request->file('image')->store('uploads','public');
+        $gallery->vcard_id    = $vcardId;
+        $gallery->image       = $path;
+        $gallery->save();
         return back();
+
     }
 
     /**
@@ -88,8 +93,8 @@ class VcardServiceController extends Controller
      */
     public function destroy($id)
     {
-         $service=VcardService::find($id);
-         $service->delete();
-         return back();
+      $gallery = VcardGallery::find($id);
+      $gallery->delete();
+      return back();
     }
 }

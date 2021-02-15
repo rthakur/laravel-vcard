@@ -14,11 +14,11 @@ class VcardController extends Controller
      */
     public function index()
     {
-      
+
        $data['vcards'] = Auth::user()->vcard()->paginate(1);
        return view('vcard.index', $data);
     }
- 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -26,22 +26,22 @@ class VcardController extends Controller
      */
     public function create(Request $request, $section = 'about', $vcardId = null)
     {
-      
+
       if ( $vcardId ){
         $vcard = $this->checkAndGetVcard($vcardId);
       }else{
         $vcard = '';
       }
-      
+
       if ($section != 'about' && ! $vcard )
       {
         $request->session()->flash('notification_warning', 'Please create vcard first');
         return redirect('/vcard/create');
       }
-      
+
       $select['section'] = $section;
       $select['vcard'] = $vcard;
-      
+
       return view('vcard.addvcard',$select);
     }
 
@@ -53,16 +53,19 @@ class VcardController extends Controller
      */
     public function store(Request $request)
     {
-      $vcard = Vcard::firstOrNew(['id' => $request->id]);
-      $vcard->user_id = Auth::id();
-      $vcard->about_compnay_name = $request->about_compnay_name;
-      $vcard->about_email = $request->about_email;
-      $vcard->about_address = $request->about_address;
-      $vcard->about_city = $request->about_city;
-      $vcard->about_state = $request->about_state;
-      $vcard->about_zip = $request->about_zip;
+      $request->validate([
+        'about_compnay_name' => 'required'
+      ]);
+      $vcard                      = Vcard::firstOrNew(['id' => $request->id]);
+      $vcard->user_id             = Auth::id();
+      $vcard->about_compnay_name  = $request->about_compnay_name;
+      $vcard->about_email         = $request->about_email;
+      $vcard->about_address       = $request->about_address;
+      $vcard->about_city          = $request->about_city;
+      $vcard->about_state         = $request->about_state;
+      $vcard->about_zip           = $request->about_zip;
       $vcard->save();
-      
+
       return redirect('vcard/create/service/'.$vcard->id);
     }
 
@@ -84,15 +87,15 @@ class VcardController extends Controller
      */
     public function edit($id)
     {
-      
+
       $vcard = $this->checkAndGetVcard($id);
-  
-      $select['section'] = 'about';
-      $select['vcard'] = $vcard;
-      
+
+      $select['section']  = 'about';
+      $select['vcard']    = $vcard;
+
       return view('vcard.addvcard',$select);
-  
-  
+
+
     }
 
     /**
@@ -115,9 +118,11 @@ class VcardController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $vcard=Vcard::find($id);
+      $vcard->delete();
+      return back();
     }
-    
+
     private function checkAndGetVcard($id)
     {
       return Vcard::where('user_id', auth::id() )

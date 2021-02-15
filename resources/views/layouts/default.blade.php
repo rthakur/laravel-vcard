@@ -112,7 +112,7 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
-                    
+
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -141,12 +141,12 @@
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-                
-                
+
+
                 <div class="container-fluid">
-                  
+
                   @yield('content')
-                  
+
                 </div>
                             <!-- Footer -->
                             <footer class="sticky-footer bg-white">
@@ -187,6 +187,9 @@
                           </div>
                       </div>
                   </div>
+                  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+                  
                   <!-- Bootstrap core JavaScript-->
                   <script src="/assets/vendor/jquery/jquery.min.js"></script>
                   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -203,4 +206,4 @@
                   <script src="/assets/js/common.js"></script>
                   @stack('scripts')
                 </body>
-</html>  
+</html>
