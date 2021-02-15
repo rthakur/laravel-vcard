@@ -88,6 +88,6 @@ class VcardServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+         //
     }
 }

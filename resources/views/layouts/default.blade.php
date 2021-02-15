@@ -33,6 +33,14 @@
       margin-bottom: 50px;
       padding: 15px;
   }
+  .error{
+    color: #e74a3b;
+    font-size: 14px;
+    margin: 2px;
+  }
+  .input-error {
+    border: 1px solid #e74a3b;
+  }
     </style>
 </head>
 <body id="page-top">
@@ -191,7 +199,8 @@
                   <script src="/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
                   <!-- Page level custom scripts -->
                   <script src="/assets/js/demo/datatables-demo.js"></script>
-                  
-                   @stack('scripts')
+                  <script src="http://malsup.github.com/jquery.form.js"></script>
+                  <script src="/assets/js/common.js"></script>
+                  @stack('scripts')
                 </body>
 </html>  
